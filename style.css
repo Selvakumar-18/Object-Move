@@ -1,0 +1,83 @@
+body
+{
+    margin:0;
+  }
+  .wrapper {
+    background:cornflowerblue;
+    width:100%;
+    height:100vh;
+    display:flex;
+  }
+  .canvas{
+    position:relative;
+    margin:auto;
+    width:310px;
+    height:220px;
+  }
+    
+  /* motion 2 */
+  #path_2{
+    position:absolute;
+    left:0px;
+    top:150px;
+  }
+  #circle_2 {
+    position:absolute;
+    left:4.5px;
+    top:210px;
+    transform-origin:bottom;
+    animation:motion_2 10s linear 0s infinite normal forwards running;
+    /* animation: motion_2 15s timing-function delay iteration-count forwards running; */
+  }
+  @keyframes motion_2 {
+ 
+
+     /*   origin */
+     0%{
+      transform:translate(0,0); 
+       
+    }
+  20%
+  {
+    transform:translate(1px,-40px);  
+  } 
+  25%
+    {
+      transform:translate(3px,-47px);  
+    }
+    35%
+    {
+      transform:translate(10px,-57px); 
+       
+    }
+     50%
+    {
+      transform:translate(50px,-60px); 
+      
+    }
+    65%
+    {
+      transform:translate(70px,-60px); 
+    }
+    75%
+    {
+      transform:translate(98px,-55px);  
+    }
+    /* 60%
+    {
+      transform:translate(95px,-58px); 
+     
+    }
+    75%
+    {
+      transform:translate(100px,-30px);
+     
+    } */
+    100%
+    {
+      transform:translate(100px,0px); 
+    
+    }
+}
+
+/* meet.google.com/jrw-yjnd-rga */

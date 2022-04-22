@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document1</title>
+    <link rel="stylesheet" href="style1.css">
+</head>
+<body>
+  <svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox=" -5 -5 700 200">
+ <path
+    id="curve"
+    d= "M 3 209 V 59 C 3 28.0721 28.0721 3 59 3 H 184.5 C 215.428 3 240.5 28.0721 240.5 59 V 209 " 
+    style="fill: none; stroke: #000; stroke-width: 1;  " />
+ <circle
+    r="4"
+    cy="0"
+    cx="0"
+    id="dot"
+    style="fill: white" />
+</svg>
+</body>
+<script>
+  window.onload = () => {
+    let dot = document.getElementById('dot');
+    let curve = document.getElementById('curve');
+    let totalLength = curve.getTotalLength();
+
+    let u = 0.5;
+    let p = curve.getPointAtLength(u * totalLength);
+    
+    dot.setAttribute("transform", `translate(${p.x}, ${p.y})`);
+}
+const dot = {
+    sprite: null,
+    track: null,
+
+    // Initialize the dot: connect sprite and track properties with supplied SVG elements
+    init: function(sprite, track) {
+        this.sprite = document.getElementById(sprite);
+        this.track = document.getElementById(track);
+    },
+    
+    // Put the dot on its spot
+    move: function(u) {
+        const p = this.track.getPointAtLength(u * this.track.getTotalLength());
+        this.sprite.setAttribute("transform", `translate(${p.x}, ${p.y})`);
+    }
+};
+
+const anim = {
+    start: function(duration) {
+        this.duration = duration;
+        this.tZero = Date.now();
+
+        requestAnimationFrame(() => this.run());
+    },
+    
+    run: function() {
+        let u = Math.min((Date.now() - this.tZero) / this.duration, 1);
+        
+        if (u < 1) {
+            // Keep requesting frames, till animation is ready
+            requestAnimationFrame(() => this.run());
+        } else {
+            this.onFinish();
+        }
+        
+        dot.move(u);
+    },
+    
+    onFinish: function() {
+        // Schedule the animation to restart
+        setTimeout(() => this.start(this.duration), 1);
+    }
+};
+
+window.onload = () => {   
+    dot.init('dot', 'curve');
+    anim.start(20000);
+}
+
+</script>
+</html>
